@@ -1,0 +1,22 @@
+{
+  "name": "dermap",
+  "version": "0.1.0",
+  "jest": {
+    "testRegex": "(/tests/.*|(\\.|/)(_test|spec))\\.[jt]sx?$"
+  },
+  "scripts": {
+    "clean": "bsb -clean-world",
+    "build": "bsb -make-world",
+    "watch": "bsb -make-world -w",
+    "test": "jest"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.9",
+    "bs-platform": "^5.0.4"
+  }
+}
