@@ -60,10 +60,10 @@ Jest.describe("(@:) Accessor", (function (param) {
 
 Jest.describe("(@!:) Unsafe Accessor", (function (param) {
         Jest.test("Gets a prmitive value", (function (param) {
-                return Curry._2(Jest.Expect[/* Operators */25][/* == */0], Jest.Expect[/* expect */0](DerMap.$at$bang$colon(currencies, "USD")), 100);
+                return Curry._2(Jest.Expect[/* Operators */25][/* == */0], Jest.Expect[/* expect */0](DerMap.$at$colon$bang(currencies, "USD")), 100);
               }));
         return Jest.test("Gets a complex value", (function (param) {
-                      return Curry._2(Jest.Expect[/* Operators */25][/* == */0], Jest.Expect[/* expect */0](DerMap.$at$bang$colon(people, "Bob")[/* petsName */0]), "Fluffykins");
+                      return Curry._2(Jest.Expect[/* Operators */25][/* == */0], Jest.Expect[/* expect */0](DerMap.$at$colon$bang(people, "Bob")[/* petsName */0]), "Fluffykins");
                     }));
       }));
 
@@ -78,7 +78,7 @@ Jest.describe("(@-) Deleter", (function (param) {
                                       return param[0] !== "Bob";
                                     }))));
               }));
-        return Jest.test("Deletes single entry", (function (param) {
+        return Jest.test("Deletes a single entry", (function (param) {
                       return Jest.Expect[/* toBe */2](true, Jest.Expect[/* expect */0](Belt_Array.every(DerMap.$at$neg(people, "James"), (function (param) {
                                             return !(param[0] === "James" && param[1][/* petsName */0] === "Bary");
                                           }))));
@@ -121,6 +121,145 @@ Jest.describe("(@+ | @++) Appender", (function (param) {
                                             82
                                           ]
                                         ])));
+                    }));
+      }));
+
+Jest.describe("(@#) Editor", (function (param) {
+        Jest.test("Edits a single primitive", (function (param) {
+                return Jest.Expect[/* toEqual */12](/* array */[
+                            401,
+                            400
+                          ], Jest.Expect[/* expect */0](DerMap.$at$colon$colon(DerMap.$at$hash(/* array */[
+                                        /* tuple */[
+                                          "PLN",
+                                          393
+                                        ],
+                                        /* tuple */[
+                                          "PLN",
+                                          400
+                                        ],
+                                        /* tuple */[
+                                          "USD",
+                                          100
+                                        ]
+                                      ], /* tuple */[
+                                        "PLN",
+                                        401
+                                      ]), "PLN")));
+              }));
+        return Jest.test("Edits a single complex value", (function (param) {
+                      return Jest.Expect[/* toEqual */12](/* array */[
+                                  /* tuple */[
+                                    "Fluffykins",
+                                    23
+                                  ],
+                                  /* tuple */[
+                                    "Bobby",
+                                    28
+                                  ],
+                                  /* tuple */[
+                                    "Poppy",
+                                    27
+                                  ]
+                                ], Jest.Expect[/* expect */0](DerMap.$at$less$pipe$great(DerMap.$at$hash(people, /* tuple */[
+                                              "James",
+                                              /* record */[
+                                                /* petsName */"Bobby",
+                                                /* age */28
+                                              ]
+                                            ]), (function (param, p) {
+                                            return /* tuple */[
+                                                    p[/* petsName */0],
+                                                    p[/* age */1]
+                                                  ];
+                                          }))));
+                    }));
+      }));
+
+Jest.describe("(@#>) Editor", (function (param) {
+        Jest.test("Edits a single primitive", (function (param) {
+                return Jest.Expect[/* toEqual */12](/* array */[
+                            786,
+                            400
+                          ], Jest.Expect[/* expect */0](DerMap.$at$colon$colon(DerMap.$at$hash$great(/* array */[
+                                        /* tuple */[
+                                          "PLN",
+                                          393
+                                        ],
+                                        /* tuple */[
+                                          "PLN",
+                                          400
+                                        ]
+                                      ], /* tuple */[
+                                        "PLN",
+                                        (function (c) {
+                                            return (c << 1);
+                                          })
+                                      ]), "PLN")));
+              }));
+        return Jest.test("Edits a single complex value", (function (param) {
+                      return Jest.Expect[/* toEqual */12](/* array */[
+                                  /* tuple */[
+                                    "Fluffykins",
+                                    23
+                                  ],
+                                  /* tuple */[
+                                    "Bary",
+                                    52
+                                  ],
+                                  /* tuple */[
+                                    "Poppy",
+                                    27
+                                  ]
+                                ], Jest.Expect[/* expect */0](DerMap.$at$less$pipe$great(DerMap.$at$hash$great(people, /* tuple */[
+                                              "James",
+                                              (function (p) {
+                                                  return /* record */[
+                                                          /* petsName */p[/* petsName */0],
+                                                          /* age */(p[/* age */1] << 1)
+                                                        ];
+                                                })
+                                            ]), (function (param, p) {
+                                            return /* tuple */[
+                                                    p[/* petsName */0],
+                                                    p[/* age */1]
+                                                  ];
+                                          }))));
+                    }));
+      }));
+
+Jest.describe("(@##) Multi Editor", (function (param) {
+        Jest.test("Edits many primitives", (function (param) {
+                return Jest.Expect[/* toEqual */12](/* array */[
+                            401,
+                            401
+                          ], Jest.Expect[/* expect */0](DerMap.$at$colon$colon(DerMap.$at$hash$hash(/* array */[
+                                        /* tuple */[
+                                          "PLN",
+                                          393
+                                        ],
+                                        /* tuple */[
+                                          "PLN",
+                                          400
+                                        ]
+                                      ], /* tuple */[
+                                        "PLN",
+                                        401
+                                      ]), "PLN")));
+              }));
+        return Jest.test("Edits many complex values", (function (param) {
+                      return Jest.Expect[/* toEqual */12](/* array */[
+                                  2,
+                                  2
+                                ], Jest.Expect[/* expect */0](Belt_Array.map(DerMap.$at$colon$colon(DerMap.$at$hash$hash(people, /* tuple */[
+                                                  "James",
+                                                  /* record */[
+                                                    /* petsName */"Jake",
+                                                    /* age */2
+                                                  ]
+                                                ]), "James"), (function (p) {
+                                            return p[/* age */1];
+                                          }))));
                     }));
       }));
 
