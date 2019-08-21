@@ -16,16 +16,6 @@ function $at$colon(inst, key) {
   
 }
 
-function $at$colon$colon(inst, key) {
-  return Belt_Array.keepMap(inst, (function (param) {
-                var match = param[0] === key;
-                if (match) {
-                  return Caml_option.some(param[1]);
-                }
-                
-              }));
-}
-
 function $at$pipe(inst, param) {
   var key = param[0];
   var match = Belt_Array.getBy(inst, (function (param) {
@@ -45,21 +35,6 @@ function $at$colon$bang(inst, key) {
 }
 
 function $at$neg(inst, key) {
-  var deleted = /* record */[/* contents */false];
-  return Belt_Array.keep(inst, (function (param) {
-                if (deleted[0]) {
-                  return true;
-                } else {
-                  var p = key !== param[0];
-                  if (!p) {
-                    deleted[0] = true;
-                  }
-                  return p;
-                }
-              }));
-}
-
-function $at$neg$neg(inst, key) {
   return Belt_Array.keep(inst, (function (param) {
                 return key !== param[0];
               }));
@@ -81,20 +56,18 @@ function $at$plus(inst, entry) {
 function $at$hash(inst, param) {
   var newVal = param[1];
   var key = param[0];
-  var edited = /* record */[/* contents */false];
   return Belt_Array.map(inst, (function (param) {
                 var k = param[0];
-                var p = k === key;
-                if (edited[0] || !p) {
-                  return /* tuple */[
-                          k,
-                          param[1]
-                        ];
-                } else {
-                  edited[0] = true;
+                var match = k === key;
+                if (match) {
                   return /* tuple */[
                           k,
                           newVal
+                        ];
+                } else {
+                  return /* tuple */[
+                          k,
+                          param[1]
                         ];
                 }
               }));
@@ -103,49 +76,6 @@ function $at$hash(inst, param) {
 function $at$hash$great(inst, param) {
   var foo = param[1];
   var key = param[0];
-  var edited = /* record */[/* contents */false];
-  return Belt_Array.map(inst, (function (param) {
-                var v = param[1];
-                var k = param[0];
-                var p = k === key;
-                if (edited[0] || !p) {
-                  return /* tuple */[
-                          k,
-                          v
-                        ];
-                } else {
-                  edited[0] = true;
-                  return /* tuple */[
-                          k,
-                          Curry._1(foo, v)
-                        ];
-                }
-              }));
-}
-
-function $at$hash$hash(inst, param) {
-  var newVal = param[1];
-  var key = param[0];
-  return Belt_Array.map(inst, (function (param) {
-                var k = param[0];
-                var match = k === key;
-                if (match) {
-                  return /* tuple */[
-                          k,
-                          newVal
-                        ];
-                } else {
-                  return /* tuple */[
-                          k,
-                          param[1]
-                        ];
-                }
-              }));
-}
-
-function $at$hash$hash$great(inst, param) {
-  var foo = param[1];
-  var key = param[0];
   return Belt_Array.map(inst, (function (param) {
                 var v = param[1];
                 var k = param[0];
@@ -164,23 +94,37 @@ function $at$hash$hash$great(inst, param) {
               }));
 }
 
-function $at$less$pipe$great(inst, foo) {
+function $at$great$great$eq(inst, foo) {
   return Belt_Array.map(inst, (function (param) {
                 return Curry._2(foo, param[0], param[1]);
               }));
 }
 
+function $$colon(inst, key) {
+  var match = Belt_Array.getBy(inst, (function (param) {
+          return key.test(param[0]);
+        }));
+  if (match !== undefined) {
+    return match[1];
+  }
+  
+}
+
+function $$colon$colon(inst, key) {
+  return Belt_Array.keep(inst, (function (param) {
+                return key.test(param[0]);
+              }));
+}
+
 exports.$at$colon = $at$colon;
-exports.$at$colon$colon = $at$colon$colon;
 exports.$at$pipe = $at$pipe;
 exports.$at$colon$bang = $at$colon$bang;
 exports.$at$neg = $at$neg;
-exports.$at$neg$neg = $at$neg$neg;
 exports.$at$plus$plus = $at$plus$plus;
 exports.$at$plus = $at$plus;
 exports.$at$hash = $at$hash;
 exports.$at$hash$great = $at$hash$great;
-exports.$at$hash$hash = $at$hash$hash;
-exports.$at$hash$hash$great = $at$hash$hash$great;
-exports.$at$less$pipe$great = $at$less$pipe$great;
+exports.$at$great$great$eq = $at$great$great$eq;
+exports.$$colon = $$colon;
+exports.$$colon$colon = $$colon$colon;
 /* No side effect */
