@@ -2,7 +2,7 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
-var DerMap = require("../src/DerMap.bs.js");
+var ReMap = require("../src/ReMap.bs.js");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 
 var currencies = /* array */[
@@ -35,10 +35,10 @@ var people = /* array */[
 
 Jest.describe("(@:) Accessor", (function (param) {
         Jest.test("Gets a prmitive value", (function (param) {
-                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](DerMap.$at$colon(currencies, "USD")));
+                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](ReMap.$at$colon(currencies, "USD")));
               }));
         Jest.test("Gets a complex value", (function (param) {
-                var match = DerMap.$at$colon(people, "Bob");
+                var match = ReMap.$at$colon(people, "Bob");
                 if (match !== undefined) {
                   return Jest.Expect[/* toEqual */12]("Fluffykins", Jest.Expect[/* expect */0](match[/* petsName */0]));
                 } else {
@@ -46,31 +46,31 @@ Jest.describe("(@:) Accessor", (function (param) {
                 }
               }));
         return Jest.test("Returns `None` when didn't find an entry", (function (param) {
-                      return Jest.Expect[/* toEqual */12](undefined, Jest.Expect[/* expect */0](DerMap.$at$colon(people, "Jon")));
+                      return Jest.Expect[/* toEqual */12](undefined, Jest.Expect[/* expect */0](ReMap.$at$colon(people, "Jon")));
                     }));
       }));
 
 Jest.describe("(@!:) Unsafe Accessor", (function (param) {
         Jest.test("Gets a prmitive value", (function (param) {
-                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](DerMap.$at$colon$bang(currencies, "USD")));
+                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](ReMap.$at$colon$bang(currencies, "USD")));
               }));
         return Jest.test("Gets a complex value", (function (param) {
-                      return Jest.Expect[/* toEqual */12]("Fluffykins", Jest.Expect[/* expect */0](DerMap.$at$colon$bang(people, "Bob")[/* petsName */0]));
+                      return Jest.Expect[/* toEqual */12]("Fluffykins", Jest.Expect[/* expect */0](ReMap.$at$colon$bang(people, "Bob")[/* petsName */0]));
                     }));
       }));
 
 Jest.describe("(@-) Deleter", (function (param) {
         Jest.test("Deletes a primitive value", (function (param) {
-                return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](DerMap.$at$colon(DerMap.$at$neg(currencies, "PLN"), "PLN")));
+                return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](ReMap.$at$colon(ReMap.$at$neg(currencies, "PLN"), "PLN")));
               }));
         return Jest.test("Deletes a colplex value", (function (param) {
-                      return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](DerMap.$at$colon(DerMap.$at$neg(people, "Bob"), "Bob")));
+                      return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](ReMap.$at$colon(ReMap.$at$neg(people, "Bob"), "Bob")));
                     }));
       }));
 
 Jest.describe("(@+ | @++) Appender", (function (param) {
         Jest.test("Adds a primitive", (function (param) {
-                return Jest.Expect[/* toBe */2](true, Jest.Expect[/* expect */0](Belt_Array.some(DerMap.$at$plus(currencies, /* tuple */[
+                return Jest.Expect[/* toBe */2](true, Jest.Expect[/* expect */0](Belt_Array.some(ReMap.$at$plus(currencies, /* tuple */[
                                         "GBP",
                                         82
                                       ]), (function (param) {
@@ -91,7 +91,7 @@ Jest.describe("(@+ | @++) Appender", (function (param) {
                                     "GBP",
                                     82
                                   ]
-                                ], Jest.Expect[/* expect */0](DerMap.$at$plus$plus(/* array */[/* tuple */[
+                                ], Jest.Expect[/* expect */0](ReMap.$at$plus$plus(/* array */[/* tuple */[
                                             "PLN",
                                             393
                                           ]], /* array */[
@@ -109,7 +109,7 @@ Jest.describe("(@+ | @++) Appender", (function (param) {
 
 Jest.describe("(@#) Editor", (function (param) {
         Jest.test("Edits a primitive", (function (param) {
-                return Jest.Expect[/* toEqual */12](401, Jest.Expect[/* expect */0](DerMap.$at$colon(DerMap.$at$hash(/* array */[
+                return Jest.Expect[/* toEqual */12](401, Jest.Expect[/* expect */0](ReMap.$at$colon(ReMap.$at$hash(/* array */[
                                         /* tuple */[
                                           "PLN",
                                           393
@@ -133,7 +133,7 @@ Jest.describe("(@#) Editor", (function (param) {
                                     "Bobby",
                                     28
                                   ]
-                                ], Jest.Expect[/* expect */0](DerMap.$at$great$great$eq(DerMap.$at$hash(people, /* tuple */[
+                                ], Jest.Expect[/* expect */0](ReMap.$at$great$great$eq(ReMap.$at$hash(people, /* tuple */[
                                               "James",
                                               /* record */[
                                                 /* petsName */"Bobby",
@@ -150,7 +150,7 @@ Jest.describe("(@#) Editor", (function (param) {
 
 Jest.describe("(@#>) Editor Function", (function (param) {
         Jest.test("Edits a primitive", (function (param) {
-                return Jest.Expect[/* toEqual */12](786, Jest.Expect[/* expect */0](DerMap.$at$colon(DerMap.$at$hash$great(/* array */[
+                return Jest.Expect[/* toEqual */12](786, Jest.Expect[/* expect */0](ReMap.$at$colon(ReMap.$at$hash$great(/* array */[
                                         /* tuple */[
                                           "PLN",
                                           393
@@ -176,7 +176,7 @@ Jest.describe("(@#>) Editor Function", (function (param) {
                                     "Bary",
                                     52
                                   ]
-                                ], Jest.Expect[/* expect */0](DerMap.$at$great$great$eq(DerMap.$at$hash$great(people, /* tuple */[
+                                ], Jest.Expect[/* expect */0](ReMap.$at$great$great$eq(ReMap.$at$hash$great(people, /* tuple */[
                                               "James",
                                               (function (p) {
                                                   return /* record */[

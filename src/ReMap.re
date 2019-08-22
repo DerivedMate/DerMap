@@ -2,13 +2,6 @@ open Belt;
 open Belt.Array;
 
 type t('a) = array((string, 'a));
-type mapCallback('a, 'b) = (string, 'a) => 'b;
-type filterCallback('a) = string => bool;
-
-type key =
-  | String(string)
-  | Regex(Js.Re.t);
-
 /**
  * Operator Syntax
  * Operators should concist of 2-3 characters in the following format:
@@ -16,10 +9,10 @@ type key =
 */
 
 /**
-Access a value by the key in a safe way.
-```reason
-[|("PLN", 393)|] @: "PLN" = option(393)
-```
+ * Access a value by the key in a safe way.
+ * ```reason
+ * [|("PLN", 393)|] @: "PLN" = option(393)
+ * ```
 */
 let (@:) = (inst: t('a), key: string) =>
   switch (inst->getBy(((k, _)) => k == key)) {
@@ -28,10 +21,10 @@ let (@:) = (inst: t('a), key: string) =>
   };
 
 /**
-Get the value or a default value.
-```reason
-[|("PLN", 393)|] @| ("GBP", 82) = 82
-```
+ * Get the value or a default value.
+ * ```reason
+ * [|("PLN", 393)|] @| ("GBP", 82) = 82
+ * ```
 */
 let (@|) = (inst: t('a), (key, def): (string, 'a)) =>
   switch (inst->Belt.Array.getBy(((k, _)) => k == key)) {
@@ -40,11 +33,11 @@ let (@|) = (inst: t('a), (key, def): (string, 'a)) =>
   };
 
 /**
-Get a value by the key in an unsafe way (omits `option('a)`).
-```reason
-[|("PLN", 393)|] @:! "PLN" = 393
-[|("PLN", 393)|] @:! "USD" = raise
-```
+ * Get a value by the key in an unsafe way (omits `option('a)`).
+ * ```reason
+ * [|("PLN", 393)|] @:! "PLN" = 393
+ * [|("PLN", 393)|] @:! "USD" = raise
+ * ```
  */
 let (@:!) = (inst: t('a), key: string) => {
   let (_, v) = inst->getBy(((k, _)) => k == key)->Option.getExn;
@@ -52,11 +45,11 @@ let (@:!) = (inst: t('a), key: string) => {
 };
 
 /**
-Delete an entry by key w/o mutation
-```reason
-[|("PLN", 393), ("USD", 100)|] @- "PLN" = [|("USD", 100)|]
-[|("PLN", 393), ("PLN", 394), ("USD", 100)|] @- "PLN" = [|("PLN", 394), ("USD", 100)|]
-```
+ * Delete an entry by key w/o mutation
+ * ```reason
+ * [|("PLN", 393), ("USD", 100)|] @- "PLN" = [|("USD", 100)|]
+ * [|("PLN", 393), ("PLN", 394), ("USD", 100)|] @- "PLN" = [|("PLN", 394), ("USD", 100)|]
+ * ```
   */
 let (@-) = (inst: t('a), key: string) => inst->keep(((k, _)) => key != k);
 
