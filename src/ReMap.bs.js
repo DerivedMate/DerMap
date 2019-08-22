@@ -6,7 +6,7 @@ var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
-function $at$colon(inst, key) {
+function get(inst, key) {
   var match = Belt_Array.getBy(inst, (function (param) {
           return param[0] === key;
         }));
@@ -16,7 +16,7 @@ function $at$colon(inst, key) {
   
 }
 
-function $at$pipe(inst, param) {
+function getOr(inst, param) {
   var key = param[0];
   var match = Belt_Array.getBy(inst, (function (param) {
           return param[0] === key;
@@ -28,19 +28,19 @@ function $at$pipe(inst, param) {
   }
 }
 
-function $at$colon$bang(inst, key) {
+function getUnsafe(inst, key) {
   return Belt_Option.getExn(Belt_Array.getBy(inst, (function (param) {
                       return param[0] === key;
                     })))[1];
 }
 
-function $at$neg(inst, key) {
+function remove(inst, key) {
   return Belt_Array.keep(inst, (function (param) {
                 return key !== param[0];
               }));
 }
 
-function $at$plus$plus(inst, entries) {
+function concat(inst, entries) {
   return Belt_Array.concat(inst, Belt_Array.keep(entries, (function (param) {
                     var k = param[0];
                     return !Belt_Array.some(inst, (function (param) {
@@ -49,11 +49,11 @@ function $at$plus$plus(inst, entries) {
                   })));
 }
 
-function $at$plus(inst, entry) {
-  return $at$plus$plus(inst, /* array */[entry]);
+function push(inst, entry) {
+  return concat(inst, /* array */[entry]);
 }
 
-function $at$hash(inst, param) {
+function replace(inst, param) {
   var newVal = param[1];
   var key = param[0];
   return Belt_Array.map(inst, (function (param) {
@@ -73,7 +73,7 @@ function $at$hash(inst, param) {
               }));
 }
 
-function $at$hash$great(inst, param) {
+function freplace(inst, param) {
   var foo = param[1];
   var key = param[0];
   return Belt_Array.map(inst, (function (param) {
@@ -94,13 +94,13 @@ function $at$hash$great(inst, param) {
               }));
 }
 
-function $at$great$great$eq(inst, foo) {
+function map(inst, foo) {
   return Belt_Array.map(inst, (function (param) {
                 return Curry._2(foo, param[0], param[1]);
               }));
 }
 
-function $$colon(inst, key) {
+function getRe(inst, key) {
   var match = Belt_Array.getBy(inst, (function (param) {
           return key.test(param[0]);
         }));
@@ -110,21 +110,36 @@ function $$colon(inst, key) {
   
 }
 
-function $$colon$colon(inst, key) {
+function aggretage(inst, key) {
   return Belt_Array.keep(inst, (function (param) {
                 return key.test(param[0]);
               }));
 }
 
-exports.$at$colon = $at$colon;
-exports.$at$pipe = $at$pipe;
-exports.$at$colon$bang = $at$colon$bang;
-exports.$at$neg = $at$neg;
-exports.$at$plus$plus = $at$plus$plus;
-exports.$at$plus = $at$plus;
-exports.$at$hash = $at$hash;
-exports.$at$hash$great = $at$hash$great;
-exports.$at$great$great$eq = $at$great$great$eq;
-exports.$$colon = $$colon;
-exports.$$colon$colon = $$colon$colon;
+var Operators = /* module */[
+  /* @: */get,
+  /* @| */getOr,
+  /* @:! */getUnsafe,
+  /* @- */remove,
+  /* @++ */concat,
+  /* @+ */push,
+  /* @# */replace,
+  /* @#> */freplace,
+  /* @>>= */map,
+  /* $: */getRe,
+  /* $:: */aggretage
+];
+
+exports.get = get;
+exports.getOr = getOr;
+exports.getUnsafe = getUnsafe;
+exports.remove = remove;
+exports.concat = concat;
+exports.push = push;
+exports.replace = replace;
+exports.freplace = freplace;
+exports.map = map;
+exports.getRe = getRe;
+exports.aggretage = aggretage;
+exports.Operators = Operators;
 /* No side effect */

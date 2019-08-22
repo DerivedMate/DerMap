@@ -1,4 +1,5 @@
 open ReMap;
+open ReMap.Operators;
 open Jest;
 open Expect;
 
