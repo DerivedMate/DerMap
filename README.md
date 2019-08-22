@@ -41,11 +41,11 @@ But if you're feeling adventures, you may just use `@:!` (or `getUnsafe()`). Let
 ```reason
 let fluffykins001 = fetchedKittens @:! "Fluffykins#001"
 
-// Now let's say that we want get it's breed.
+// Now let's say that we want to get it's breed.
 let breed = fluffykins001 @:! "Breed" 
 // => "Ragdoll"
 ```
-Cool things, right? Ok, let's say it's just been Fluffykins's birthday (Happy birthday Fluffy :tada:), so it's now 4, not 3. Time to update that!
+Cool things, right? Ok, let's say it's just been Fluffykins's birthday (Happy birthday Fluffy :tada:), so now it's 4, not 3. Time to update that!
 ```reason
 let newKittens = fetchedKittens 
   @# (
