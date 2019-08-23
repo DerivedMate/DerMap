@@ -95,16 +95,16 @@ Here's how the `@#>` operator works. Instead of taking a new value, it takes a f
 
 ## Different forms
 
-| Function                                         | Operator |
-| ------------------------------------------------ | -------- |
-| get(t('a), string) => option('a)                 | @:       |
-| getOr(t('a), string, 'a) => 'a                   | @\|      |
-| getUnsafe(t('a), string) => 'a                   | @:!      |
-| remove(t('a), string) => t('a)                   | @-       |
-| concat(t('a), t('a)) => t('a)                    | @++      |
-| push(t('a), 'a) => t('a)                         | @+       |
-| replace(t('a), string, 'a) => t('a)              | @#       |
-| freplace(t('a), string, 'a => 'a) => t('a)       | @#>      |
-| map(t('a), (string, 'a) => 'b) => array('b)      | @>>=     |
-| getRe(t('a), Js.Re.t) => array('a)               | $:       |
-| aggregate(t('a), Js.Re.t) => array((string, 'a)) | $::      |
+| Function                                   | Operator |
+| ------------------------------------------ | -------- |
+| get(t('a), string) => option('a)           | @:       |
+| getOr(t('a), string, 'a) => 'a             | @\|      |
+| getUnsafe(t('a), string) => 'a             | @:!      |
+| remove(t('a), string) => t('a)             | @-       |
+| concat(t('a), t('a)) => t('a)              | @++      |
+| push(t('a), 'a) => t('a)                   | @+       |
+| replace(t('a), string, 'a) => t('a)        | @#       |
+| freplace(t('a), string, 'a => 'a) => t('a) | @#>      |
+| map(t('a), string, 'a => 'b) => array('b)  | @>>=     |
+| getRe(t('a), Js.Re.t) => array('a)         | $:       |
+| aggregate(t('a), Js.Re.t) => t('a)         | $::      |
