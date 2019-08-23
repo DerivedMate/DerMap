@@ -215,7 +215,7 @@ module Operators = {
   /**
    * Aggregates entries whose keys match the given regex.
    * ```reason
-   * [|("Nil:01", 0), ("Pol:01", 1), ("Pol:02", 2)|] $:: [%re]
+   * [|("Nil:01", 0), ("Pol:01", 1), ("Pol:02", 2)|] $:: [%re "/^Pol/"]
    *  = [|("Pol:01", 1), ("Pol:02", 2)|]
    * ```
    */
