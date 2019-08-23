@@ -26,7 +26,7 @@ let get = (inst: t('a), key: string) =>
  * [|("PLN", 393)|] @| ("GBP", 82) = 82
  * ```
 */
-let getOr = (inst: t('a), (key, def): (string, 'a)) =>
+let getOr = (inst: t('a), key: string, def: 'a) =>
   switch (inst->Belt.Array.getBy(((k, _)) => k == key)) {
   | Some((_, v)) => v
   | None => def
@@ -77,7 +77,7 @@ let push = (inst: t('a), entry: (string, 'a)) => concat(inst, [|entry|]);
  *  = [|("PLN", 390), ("PLN", 400)|]
  * ```
  */
-let replace = (inst: t('a), (key, newVal): (string, 'a)) =>
+let replace = (inst: t('a), key: string, newVal: 'a) =>
   inst->map(((k, v)) => k == key ? (k, newVal) : (k, v));
 /**
  * Edits a matching entry using a function
@@ -86,7 +86,7 @@ let replace = (inst: t('a), (key, newVal): (string, 'a)) =>
  *  = [|("PLN", 200)|]
  * ```
  */
-let freplace = (inst: t('a), (key, foo): (string, 'a => 'a)) =>
+let freplace = (inst: t('a), key: string, foo: 'a => 'a) =>
   inst->map(((k, v)) => k == key ? (k, foo(v)) : (k, v));
 
 let map = (inst: t('a), foo: (string, 'a) => 'b) =>
@@ -119,13 +119,13 @@ let aggretage = (inst: t('a), key: Js.Re.t) =>
 
 module Operators = {
   let (@:) = get;
-  let (@|) = getOr;
+  let (@|) = (inst, (k, a)) => getOr(inst, k, a);
   let (@:!) = getUnsafe;
   let (@-) = remove;
   let (@++) = concat;
   let (@+) = push;
-  let (@#) = replace;
-  let (@#>) = freplace;
+  let (@#) = (inst, (k, nv)) => replace(inst, k, nv);
+  let (@#>) = (inst, (k, f)) => freplace(inst, k, f);
   let (@>>=) = map;
   let ($:) = getRe;
   let ($::) = aggretage;

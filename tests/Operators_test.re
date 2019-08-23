@@ -87,7 +87,7 @@ describe("(@#>) Editor Function", () => {
     )
     |> toEqual(Some(786))
   );
-
+ 
   test("Edits a complex value", () =>
     expect(
       (people @#> ("James", p => {age: p.age * 2, petsName: p.petsName}))

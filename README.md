@@ -1,6 +1,13 @@
 # ReMap
 > Operators for working with JSON objects of unknown structure.
 
+## Content
+- [ReMap](#remap)
+  - [Content](#content)
+  - [Motivation](#motivation)
+  - [Example](#example)
+  - [Different forms](#different-forms)
+
 ## Motivation
 Long story short, I was working on a CMS system, which allowed users to edit db models, thus I didn't know data-types of fetched items ahead of time. As you may know, Reason doesn't allow for dynamic records. It made my use arrays of tuples, a.k.a. `(key => value)` pairs. Dealing with it was kinda tedious, so I decided to write a simple lib around it.
 
@@ -84,3 +91,20 @@ let newKittens = fetchedKittens
       )
   )
 ```
+Here's how the `@#>` operator works. Instead of taking a new value, it takes a function `('a) => 'a`.
+
+## Different forms
+
+| Function                                         | Operator |
+| ------------------------------------------------ | -------- |
+| get(t('a), string) => option('a)                 | @:       |
+| getOr(t('a), string, 'a) => 'a                   | @\|      |
+| getUnsafe(t('a), string) => 'a                   | @:!      |
+| remove(t('a), string) => t('a)                   | @-       |
+| concat(t('a), t('a)) => t('a)                    | @++      |
+| push(t('a), 'a) => t('a)                         | @+       |
+| replace(t('a), string, 'a) => t('a)              | @#       |
+| freplace(t('a), string, 'a => 'a) => t('a)       | @#>      |
+| map(t('a), (string, 'a) => 'b) => array('b)      | @>>=     |
+| getRe(t('a), Js.Re.t) => array('a)               | $:       |
+| aggregate(t('a), Js.Re.t) => array((string, 'a)) | $::      |

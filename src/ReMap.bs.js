@@ -16,15 +16,14 @@ function get(inst, key) {
   
 }
 
-function getOr(inst, param) {
-  var key = param[0];
+function getOr(inst, key, def) {
   var match = Belt_Array.getBy(inst, (function (param) {
           return param[0] === key;
         }));
   if (match !== undefined) {
     return match[1];
   } else {
-    return param[1];
+    return def;
   }
 }
 
@@ -53,9 +52,7 @@ function push(inst, entry) {
   return concat(inst, /* array */[entry]);
 }
 
-function replace(inst, param) {
-  var newVal = param[1];
-  var key = param[0];
+function replace(inst, key, newVal) {
   return Belt_Array.map(inst, (function (param) {
                 var k = param[0];
                 var match = k === key;
@@ -73,9 +70,7 @@ function replace(inst, param) {
               }));
 }
 
-function freplace(inst, param) {
-  var foo = param[1];
-  var key = param[0];
+function freplace(inst, key, foo) {
   return Belt_Array.map(inst, (function (param) {
                 var v = param[1];
                 var k = param[0];
@@ -116,15 +111,27 @@ function aggretage(inst, key) {
               }));
 }
 
+function $at$pipe(inst, param) {
+  return getOr(inst, param[0], param[1]);
+}
+
+function $at$hash(inst, param) {
+  return replace(inst, param[0], param[1]);
+}
+
+function $at$hash$great(inst, param) {
+  return freplace(inst, param[0], param[1]);
+}
+
 var Operators = /* module */[
   /* @: */get,
-  /* @| */getOr,
+  /* @| */$at$pipe,
   /* @:! */getUnsafe,
   /* @- */remove,
   /* @++ */concat,
   /* @+ */push,
-  /* @# */replace,
-  /* @#> */freplace,
+  /* @# */$at$hash,
+  /* @#> */$at$hash$great,
   /* @>>= */map,
   /* $: */getRe,
   /* $:: */aggretage
