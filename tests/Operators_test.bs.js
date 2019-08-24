@@ -156,8 +156,8 @@ Jest.describe("(@#>) Editor Function", (function (param) {
                                           393
                                         ],
                                         /* tuple */[
-                                          "PLN",
-                                          400
+                                          "USD",
+                                          100
                                         ]
                                       ], /* tuple */[
                                         "PLN",
@@ -190,6 +190,26 @@ Jest.describe("(@#>) Editor Function", (function (param) {
                                                     p[/* age */1]
                                                   ];
                                           }))));
+                    }));
+      }));
+
+Jest.describe("(@>>:) Collect", (function (param) {
+        return Jest.test("Collects entries", (function (param) {
+                      var r = ReMap.Operators[/* @>>: */9](currencies, /* array */[
+                            "PLN",
+                            "USD"
+                          ]);
+                      console.log(r);
+                      return Jest.Expect[/* toEqual */12](/* array */[
+                                  /* tuple */[
+                                    "USD",
+                                    100
+                                  ],
+                                  /* tuple */[
+                                    "PLN",
+                                    393
+                                  ]
+                                ], Jest.Expect[/* expect */0](r));
                     }));
       }));
 

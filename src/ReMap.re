@@ -8,6 +8,12 @@ open Belt.Array;
 */
 type t('a) = array((string, 'a));
 
+let make = (keys: array(string), values: array('a)): t('a) =>
+  Belt.Array.zip(keys, values);
+
+let makeL = (keys: list(string), values: list('a)): t('a) =>
+  List.(toArray(zip(keys, values)));
+
 /**
  * Access a value by the key in a safe way.
  * ```reason
@@ -113,6 +119,21 @@ let freplace = (inst: t('a), key: string, foo: 'a => 'a) =>
 let map = (inst: t('a), foo: (string, 'a) => 'b) =>
   inst->map(((k, v)) => foo(k, v));
 
+/**
+ * Collects the given keys to a single instance.
+ * ```reason
+ * collect(
+ *  [|("PLN", 393), ("USD", 100), ("GBP", 82)|],
+ *  [|"USD", "GBP"|]
+ * ) = [|
+ *  ("USD", 100),
+ *  ("GBP", 82)
+ * |]
+ * ```
+ */
+let collect = (inst: t('a), keys: array(string)): t('a) =>
+  inst->keep(((k, _)) => some(keys, kc => kc == k));
+
 // -------- Regex operators -------- //
 
 /**
@@ -204,6 +225,15 @@ module Operators = {
    */
   let (@#>) = (inst, (k, f)) => freplace(inst, k, f);
   let (@>>=) = map;
+  /**
+   * Collects the given keys to a single instance.
+   * ```reason
+   *  [|("PLN", 393), ("USD", 100), ("GBP", 82)|]
+   *    @>>: [|"USD", "GBP"|]
+   *    = [|("USD", 100), ("GBP", 82)|]
+   * ```
+   */
+  let (@>>:) = collect;
   /**
    * Accesses an entry whose key matches the given regex.
    * ```reason

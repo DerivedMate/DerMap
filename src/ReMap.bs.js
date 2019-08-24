@@ -2,9 +2,16 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+
+var make = Belt_Array.zip;
+
+function makeL(keys, values) {
+  return Belt_List.toArray(Belt_List.zip(keys, values));
+}
 
 function get(inst, key) {
   var match = Belt_Array.getBy(inst, (function (param) {
@@ -95,6 +102,15 @@ function map(inst, foo) {
               }));
 }
 
+function collect(inst, keys) {
+  return Belt_Array.keep(inst, (function (param) {
+                var k = param[0];
+                return Belt_Array.some(keys, (function (kc) {
+                              return kc === k;
+                            }));
+              }));
+}
+
 function getRe(inst, key) {
   var match = Belt_Array.getBy(inst, (function (param) {
           return key.test(param[0]);
@@ -133,10 +149,13 @@ var Operators = /* module */[
   /* @# */$at$hash,
   /* @#> */$at$hash$great,
   /* @>>= */map,
+  /* @>>: */collect,
   /* $: */getRe,
   /* $:: */aggretage
 ];
 
+exports.make = make;
+exports.makeL = makeL;
 exports.get = get;
 exports.getOr = getOr;
 exports.getUnsafe = getUnsafe;
@@ -146,6 +165,7 @@ exports.push = push;
 exports.replace = replace;
 exports.freplace = freplace;
 exports.map = map;
+exports.collect = collect;
 exports.getRe = getRe;
 exports.aggretage = aggretage;
 exports.Operators = Operators;

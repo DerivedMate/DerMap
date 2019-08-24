@@ -5,7 +5,7 @@ open Expect;
 
 let currencies: t(int) = [|("USD", 100), ("PLN", 393)|];
 type person = {
-  petsName: string, 
+  petsName: string,
   age: int,
 };
 let people: t(person) = [|
@@ -83,11 +83,11 @@ describe("(@#) Editor", () => {
 describe("(@#>) Editor Function", () => {
   test("Edits a primitive", () =>
     expect(
-      ([|("PLN", 393), ("PLN", 400)|] @#> ("PLN", c => c * 2)) @: "PLN",
+      ([|("PLN", 393), ("USD", 100)|] @#> ("PLN", c => c * 2)) @: "PLN",
     )
     |> toEqual(Some(786))
   );
- 
+
   test("Edits a complex value", () =>
     expect(
       (people @#> ("James", p => {age: p.age * 2, petsName: p.petsName}))
@@ -96,3 +96,11 @@ describe("(@#>) Editor Function", () => {
     |> toEqual([|("Fluffykins", 23), ("Bary", 52)|])
   );
 });
+
+describe("(@>>:) Collect", () =>
+  test("Collects entries", () => {
+    let r = currencies @>>: [|"PLN", "USD"|];
+    Js.Console.log(r);
+    expect(r) |> toEqual([|("USD", 100), ("PLN", 393)|]);
+  })
+);
