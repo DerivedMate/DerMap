@@ -98,9 +98,8 @@ describe("(@#>) Editor Function", () => {
 });
 
 describe("(@>>:) Collect", () =>
-  test("Collects entries", () => {
-    let r = currencies @>>: [|"PLN", "USD"|];
-    Js.Console.log(r);
-    expect(r) |> toEqual([|("USD", 100), ("PLN", 393)|]);
-  })
+  test("Collects entries", () =>
+    expect(currencies @>>: [|"PLN", "USD"|])
+    |> toEqual([|("USD", 100), ("PLN", 393)|])
+  )
 );

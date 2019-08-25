@@ -145,9 +145,9 @@ let collect = (inst: t('a), keys: array(string)): t('a) =>
  * ) = Some(1)
  * ```
  */
-let getRe = (inst: t('a), key: Js.Re.t) =>
+let getRe = (inst: t('a), key: Js.Re.t): option('a) =>
   switch (inst->getBy(((k, _)) => Js.Re.test_(key, k))) {
-  | Some((_, v)) => v
+  | Some((_, v)) => Some(v)
   | None => None
   };
 
@@ -160,14 +160,14 @@ let getRe = (inst: t('a), key: Js.Re.t) =>
  * ) = [|("Pol:01", 1), ("Pol:02", 2)|]
  * ```
  */
-let aggretage = (inst: t('a), key: Js.Re.t) =>
+let aggretage = (inst: t('a), key: Js.Re.t): t('a) =>
   inst->keep(((k, _)) => Js.Re.test_(key, k));
 
 module Operators = {
   /**
    * Access a value by the key in a safe way.
    * ```reason
-   * [|("PLN", 393)|] @: "PLN" = option(393)
+   * [|("PLN", 393)|] @: "PLN" = Some(393)
    * ```
    */
   let (@:) = get;
@@ -190,7 +190,6 @@ module Operators = {
    * Remove an entry by key w/o mutation
    * ```reason
    * [|("PLN", 393), ("USD", 100)|] @- "PLN" = [|("USD", 100)|]
-   * [|("PLN", 393), ("PLN", 394), ("USD", 100)|] @- "PLN" = [|("PLN", 394), ("USD", 100)|]
    * ```
    */
   let (@-) = remove;

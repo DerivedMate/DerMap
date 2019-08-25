@@ -195,11 +195,6 @@ Jest.describe("(@#>) Editor Function", (function (param) {
 
 Jest.describe("(@>>:) Collect", (function (param) {
         return Jest.test("Collects entries", (function (param) {
-                      var r = ReMap.Operators[/* @>>: */9](currencies, /* array */[
-                            "PLN",
-                            "USD"
-                          ]);
-                      console.log(r);
                       return Jest.Expect[/* toEqual */12](/* array */[
                                   /* tuple */[
                                     "USD",
@@ -209,7 +204,10 @@ Jest.describe("(@>>:) Collect", (function (param) {
                                     "PLN",
                                     393
                                   ]
-                                ], Jest.Expect[/* expect */0](r));
+                                ], Jest.Expect[/* expect */0](ReMap.Operators[/* @>>: */9](currencies, /* array */[
+                                          "PLN",
+                                          "USD"
+                                        ])));
                     }));
       }));
 

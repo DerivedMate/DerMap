@@ -116,7 +116,7 @@ function getRe(inst, key) {
           return key.test(param[0]);
         }));
   if (match !== undefined) {
-    return match[1];
+    return Caml_option.some(match[1]);
   }
   
 }
