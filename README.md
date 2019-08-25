@@ -14,7 +14,7 @@ Long story short, I was working on a CMS system, which allowed users to edit db 
 ## Example
 Let's pretend a user wants to access a collection of kittens. Needless to say you had to prepare the structure in advance on the backend.
 ```reason
-let fetchedKittens = Fetch.KittensSync() |> Json.ParseDynamic
+let fetchedKittens = Fetch.kittensSync() |> Json.parseDynamic
 /*
   => [|
     ("Fluffykins#001", [|
