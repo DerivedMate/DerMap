@@ -4,10 +4,17 @@
 ## Content
 - [ReMap](#remap)
   - [Content](#content)
+  - [Installation](#installation)
   - [Motivation](#motivation)
   - [Example](#example)
   - [Different forms](#different-forms)
 
+## Installation
+You can get yourself a brand new copy of RieMap for **FREE**! (crazy, I know...)
+Just use the following command:
+```sh
+npm i riemap
+```
 ## Motivation
 Long story short, I was working on a CMS system, which allowed users to edit db models, thus I didn't know data-types of fetched items ahead of time. As you may know, Reason doesn't allow for dynamic records. It made my use arrays of tuples, a.k.a. `(key => value)` pairs. Dealing with it was kinda tedious, so I decided to write a simple lib around it.
 

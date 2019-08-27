@@ -1,6 +1,6 @@
 {
-  "name": "re-map",
-  "version": "0.1.0",
+  "name": "riemap",
+  "version": "0.1.1",
   "jest": {
     "testRegex": "(/tests/.*|(\\.|/)(_test|spec))\\.[jt]sx?$"
   },
@@ -13,7 +13,7 @@
   "keywords": [
     "BuckleScript"
   ],
-  "author": "",
+  "author": "lastshadowpl",
   "license": "MIT",
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.9",

@@ -2,7 +2,7 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
-var ReMap = require("../src/ReMap.bs.js");
+var RieMap = require("../src/RieMap.bs.js");
 var Caml_format = require("bs-platform/lib/js/caml_format.js");
 
 var fetchedKittens = /* array */[
@@ -58,7 +58,7 @@ Jest.describe("README Example", (function (param) {
                               "Breed",
                               "Ragdoll"
                             ]
-                          ], Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](fetchedKittens, "Fluffykins#001")));
+                          ], Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](fetchedKittens, "Fluffykins#001")));
               }));
         Jest.test("Get Fluffykins (@:!)", (function (param) {
                 return Jest.Expect[/* toEqual */12](/* array */[
@@ -70,17 +70,17 @@ Jest.describe("README Example", (function (param) {
                               "Breed",
                               "Ragdoll"
                             ]
-                          ], Jest.Expect[/* expect */0](ReMap.Operators[/* @:! */2](fetchedKittens, "Fluffykins#001")));
+                          ], Jest.Expect[/* expect */0](RieMap.Operators[/* @:! */2](fetchedKittens, "Fluffykins#001")));
               }));
         Jest.test("Get age (@:!)", (function (param) {
-                var fk = ReMap.Operators[/* @:! */2](fetchedKittens, "Fluffykins#001");
-                return Jest.Expect[/* toEqual */12]("3", Jest.Expect[/* expect */0](ReMap.Operators[/* @:! */2](fk, "Age")));
+                var fk = RieMap.Operators[/* @:! */2](fetchedKittens, "Fluffykins#001");
+                return Jest.Expect[/* toEqual */12]("3", Jest.Expect[/* expect */0](RieMap.Operators[/* @:! */2](fk, "Age")));
               }));
         Jest.test("Update age (@#)", (function (param) {
-                var fk = ReMap.Operators[/* @:! */2](fetchedKittens, "Fluffykins#001");
-                var newKittens = ReMap.Operators[/* @# */6](fetchedKittens, /* tuple */[
+                var fk = RieMap.Operators[/* @:! */2](fetchedKittens, "Fluffykins#001");
+                var newKittens = RieMap.Operators[/* @# */6](fetchedKittens, /* tuple */[
                       "Fluffykins#001",
-                      ReMap.Operators[/* @# */6](fk, /* tuple */[
+                      RieMap.Operators[/* @# */6](fk, /* tuple */[
                             "Age",
                             "4"
                           ])
@@ -128,12 +128,12 @@ Jest.describe("README Example", (function (param) {
                           ], Jest.Expect[/* expect */0](newKittens));
               }));
         return Jest.test("Update dynamic age (@#>)", (function (param) {
-                      var newKittens = ReMap.Operators[/* @#> */7](fetchedKittens, /* tuple */[
+                      var newKittens = RieMap.Operators[/* @#> */7](fetchedKittens, /* tuple */[
                             "Fluffykins#001",
                             (function (fluffykins) {
-                                return ReMap.Operators[/* @# */6](fluffykins, /* tuple */[
+                                return RieMap.Operators[/* @# */6](fluffykins, /* tuple */[
                                             "Age",
-                                            String(Caml_format.caml_int_of_string(ReMap.Operators[/* @:! */2](fluffykins, "Age")) + 1 | 0)
+                                            String(Caml_format.caml_int_of_string(RieMap.Operators[/* @:! */2](fluffykins, "Age")) + 1 | 0)
                                           ]);
                               })
                           ]);

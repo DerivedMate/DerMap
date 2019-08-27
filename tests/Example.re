@@ -1,4 +1,4 @@
-open ReMap.Operators;
+open RieMap.Operators;
 open Jest;
 open Expect;
 

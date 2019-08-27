@@ -2,17 +2,53 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
-var ReMap = require("../src/ReMap.bs.js");
+var RieMap = require("../src/RieMap.bs.js");
+
+Jest.describe("Inline: Functions (f form only)", (function (param) {
+        Jest.test("make", (function (param) {
+                return Jest.Expect[/* toEqual */12](/* array */[
+                            /* tuple */[
+                              "PLN",
+                              393
+                            ],
+                            /* tuple */[
+                              "USD",
+                              100
+                            ]
+                          ], Jest.Expect[/* expect */0](RieMap.make(/* array */[
+                                    "PLN",
+                                    "USD"
+                                  ], /* array */[
+                                    393,
+                                    100
+                                  ])));
+              }));
+        return Jest.test("keys", (function (param) {
+                      return Jest.Expect[/* toEqual */12](/* array */[
+                                  "PLN",
+                                  "USD"
+                                ], Jest.Expect[/* expect */0](RieMap.keys(/* array */[
+                                          /* tuple */[
+                                            "PLN",
+                                            393
+                                          ],
+                                          /* tuple */[
+                                            "USD",
+                                            100
+                                          ]
+                                        ])));
+                    }));
+      }));
 
 Jest.describe("Inline: Operators", (function (param) {
         Jest.test("@:", (function (param) {
-                return Jest.Expect[/* toEqual */12](393, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](/* array */[/* tuple */[
+                return Jest.Expect[/* toEqual */12](393, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](/* array */[/* tuple */[
                                       "PLN",
                                       393
                                     ]], "PLN")));
               }));
         Jest.test("@|", (function (param) {
-                return Jest.Expect[/* toEqual */12](82, Jest.Expect[/* expect */0](ReMap.Operators[/* @| */1](/* array */[/* tuple */[
+                return Jest.Expect[/* toEqual */12](82, Jest.Expect[/* expect */0](RieMap.Operators[/* @| */1](/* array */[/* tuple */[
                                       "PLN",
                                       393
                                     ]], /* tuple */[
@@ -21,7 +57,7 @@ Jest.describe("Inline: Operators", (function (param) {
                                   ])));
               }));
         Jest.test("@:!", (function (param) {
-                return Jest.Expect[/* toEqual */12](393, Jest.Expect[/* expect */0](ReMap.Operators[/* @:! */2](/* array */[/* tuple */[
+                return Jest.Expect[/* toEqual */12](393, Jest.Expect[/* expect */0](RieMap.Operators[/* @:! */2](/* array */[/* tuple */[
                                       "PLN",
                                       393
                                     ]], "PLN")));
@@ -30,7 +66,7 @@ Jest.describe("Inline: Operators", (function (param) {
                 return Jest.Expect[/* toEqual */12](/* array */[/* tuple */[
                               "USD",
                               100
-                            ]], Jest.Expect[/* expect */0](ReMap.Operators[/* @- */3](/* array */[
+                            ]], Jest.Expect[/* expect */0](RieMap.Operators[/* @- */3](/* array */[
                                     /* tuple */[
                                       "PLN",
                                       393
@@ -55,7 +91,7 @@ Jest.describe("Inline: Operators", (function (param) {
                               "USD",
                               100
                             ]
-                          ], Jest.Expect[/* expect */0](ReMap.Operators[/* @++ */4](/* array */[/* tuple */[
+                          ], Jest.Expect[/* expect */0](RieMap.Operators[/* @++ */4](/* array */[/* tuple */[
                                       "PLN",
                                       393
                                     ]], /* array */[
@@ -79,7 +115,7 @@ Jest.describe("Inline: Operators", (function (param) {
                               "GBP",
                               82
                             ]
-                          ], Jest.Expect[/* expect */0](ReMap.Operators[/* @+ */5](/* array */[/* tuple */[
+                          ], Jest.Expect[/* expect */0](RieMap.Operators[/* @+ */5](/* array */[/* tuple */[
                                       "PLN",
                                       393
                                     ]], /* tuple */[
@@ -97,7 +133,7 @@ Jest.describe("Inline: Operators", (function (param) {
                               "USD",
                               100
                             ]
-                          ], Jest.Expect[/* expect */0](ReMap.Operators[/* @# */6](/* array */[
+                          ], Jest.Expect[/* expect */0](RieMap.Operators[/* @# */6](/* array */[
                                     /* tuple */[
                                       "PLN",
                                       393
@@ -115,7 +151,7 @@ Jest.describe("Inline: Operators", (function (param) {
                 return Jest.Expect[/* toEqual */12](/* array */[/* tuple */[
                               "PLN",
                               200
-                            ]], Jest.Expect[/* expect */0](ReMap.Operators[/* @#> */7](/* array */[/* tuple */[
+                            ]], Jest.Expect[/* expect */0](RieMap.Operators[/* @#> */7](/* array */[/* tuple */[
                                       "PLN",
                                       100
                                     ]], /* tuple */[
@@ -135,7 +171,7 @@ Jest.describe("Inline: Operators", (function (param) {
                               "GBP",
                               82
                             ]
-                          ], Jest.Expect[/* expect */0](ReMap.Operators[/* @>>: */9](/* array */[
+                          ], Jest.Expect[/* expect */0](RieMap.Operators[/* @>>: */9](/* array */[
                                     /* tuple */[
                                       "PLN",
                                       393
@@ -154,7 +190,7 @@ Jest.describe("Inline: Operators", (function (param) {
                                   ])));
               }));
         Jest.test("$:", (function (param) {
-                return Jest.Expect[/* toEqual */12](1, Jest.Expect[/* expect */0](ReMap.Operators[/* $: */10](/* array */[
+                return Jest.Expect[/* toEqual */12](1, Jest.Expect[/* expect */0](RieMap.Operators[/* $: */10](/* array */[
                                     /* tuple */[
                                       "Nil:01",
                                       0
@@ -175,7 +211,7 @@ Jest.describe("Inline: Operators", (function (param) {
                                     "Pol:02",
                                     2
                                   ]
-                                ], Jest.Expect[/* expect */0](ReMap.Operators[/* $:: */11](/* array */[
+                                ], Jest.Expect[/* expect */0](RieMap.Operators[/* $:: */11](/* array */[
                                           /* tuple */[
                                             "Nil:01",
                                             0

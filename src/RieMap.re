@@ -11,8 +11,18 @@ type t('a) = array((string, 'a));
 let make = (keys: array(string), values: array('a)): t('a) =>
   Belt.Array.zip(keys, values);
 
-let makeL = (keys: list(string), values: list('a)): t('a) =>
-  List.(toArray(zip(keys, values)));
+/**
+ * Get keys of the instance.
+ * ```reason
+ * keys(
+ *  [|
+ *    ("PLN", 393),
+ *    ("USD", 100)
+ *  |]
+ * ) == [|"PLN", "USD"|]
+ * ```
+ */
+let keys = (inst: t(_)) => inst->Belt.Array.map(((k, _)) => k);
 
 /**
  * Access a value by the key in a safe way.
@@ -20,7 +30,7 @@ let makeL = (keys: list(string), values: list('a)): t('a) =>
  * get(
  *  [|("PLN", 393)|],
  *  "PLN"
- * ) = option(393)
+ * ) == Some(393)
  * ```
  */
 let get = (inst: t('a), key: string) =>
@@ -36,7 +46,7 @@ let get = (inst: t('a), key: string) =>
  *  [|("PLN", 393)|],
  *  "GBP",
  *  82
- * ) = 82
+ * ) == 82
  * ```
  */
 let getOr = (inst: t('a), key: string, def: 'a) =>
@@ -48,8 +58,8 @@ let getOr = (inst: t('a), key: string, def: 'a) =>
 /**
  * Get a value by the key in an unsafe way (omits `option('a)`).
  * ```reason
- * [|("PLN", 393)|] @:! "PLN" = 393
- * [|("PLN", 393)|] @:! "USD" = raise
+ * getUnsafe([|("PLN", 393)|], "PLN") == 393
+ * getUnsafe([|("PLN", 393)|], "USD") == raise
  * ```
  */
 let getUnsafe = (inst: t('a), key: string) => {
@@ -63,7 +73,7 @@ let getUnsafe = (inst: t('a), key: string) => {
  * remove(
  *  [|("PLN", 393), ("USD", 100)|],
  *  "PLN"
- * ) = [|("USD", 100)|]
+ * ) == [|("USD", 100)|]
  * ```
  */
 let remove = (inst: t('a), key: string) =>
@@ -74,7 +84,7 @@ let remove = (inst: t('a), key: string) =>
  * concat(
  *  [|("PLN", 393)|],
  *  [|("GBP", 82), ("USD", 100)|]
- * ) =  [|("PLN", 393), ("GBP", 82), ("USD", 100)|]
+ * ) ==  [|("PLN", 393), ("GBP", 82), ("USD", 100)|]
  * ```
   */
 let concat = (inst: t('a), entries: array((string, 'a))) =>
@@ -87,7 +97,7 @@ let concat = (inst: t('a), entries: array((string, 'a))) =>
  * push(
  *  [|("PLN", 393)|],
  *  ("GBP", 82)
- * ) = [|("PLN", 393), ("GBP", 82)|]
+ * ) == [|("PLN", 393), ("GBP", 82)|]
  * ```
  */
 let push = (inst: t('a), entry: (string, 'a)) => concat(inst, [|entry|]);
@@ -98,7 +108,7 @@ let push = (inst: t('a), entry: (string, 'a)) => concat(inst, [|entry|]);
  * push(
  *  [|("PLN", 393), ("USD", 100)|],
  *  ("PLN", 390)
- * ) = [|("PLN", 390), ("USD", 100)|]
+ * ) == [|("PLN", 390), ("USD", 100)|]
  * ```
  */
 let replace = (inst: t('a), key: string, newVal: 'a) =>
@@ -110,7 +120,7 @@ let replace = (inst: t('a), key: string, newVal: 'a) =>
  * freplace(
  *  [|("PLN", 100)|],
  *  ("PLN", c => c * 2)
- * ) = [|("PLN", 200)|]
+ * ) == [|("PLN", 200)|]
  * ```
  */
 let freplace = (inst: t('a), key: string, foo: 'a => 'a) =>
@@ -125,7 +135,7 @@ let map = (inst: t('a), foo: (string, 'a) => 'b) =>
  * collect(
  *  [|("PLN", 393), ("USD", 100), ("GBP", 82)|],
  *  [|"USD", "GBP"|]
- * ) = [|
+ * ) == [|
  *  ("USD", 100),
  *  ("GBP", 82)
  * |]
@@ -142,7 +152,7 @@ let collect = (inst: t('a), keys: array(string)): t('a) =>
  * getRe(
  *  [|("Nil:01", 0), ("Pol:01", 1)|],
  *  [%re "/^Pol/"]
- * ) = Some(1)
+ * ) == Some(1)
  * ```
  */
 let getRe = (inst: t('a), key: Js.Re.t): option('a) =>
@@ -157,7 +167,7 @@ let getRe = (inst: t('a), key: Js.Re.t): option('a) =>
  * aggretage(
  *  [|("Nil:01", 0), ("Pol:01", 1), ("Pol:02", 2)|],
  *  [%re "/^Pol/"]
- * ) = [|("Pol:01", 1), ("Pol:02", 2)|]
+ * ) == [|("Pol:01", 1), ("Pol:02", 2)|]
  * ```
  */
 let aggretage = (inst: t('a), key: Js.Re.t): t('a) =>
@@ -167,43 +177,46 @@ module Operators = {
   /**
    * Access a value by the key in a safe way.
    * ```reason
-   * [|("PLN", 393)|] @: "PLN" = Some(393)
+   * [|("PLN", 393)|] @: "PLN" == Some(393)
    * ```
    */
   let (@:) = get;
   /**
    * Get the value or a default value.
    * ```reason
-   * [|("PLN", 393)|] @| ("GBP", 82) = 82
+   * [|("PLN", 393)|] @| ("GBP", 82) == 82
    * ```
    */
   let (@|) = (inst, (k, a)) => getOr(inst, k, a);
   /**
    * Get a value by the key in an unsafe way (omits `option('a)`).
    * ```reason
-   * [|("PLN", 393)|] @:! "PLN" = 393
-   * [|("PLN", 393)|] @:! "USD" = raise
+   * [|("PLN", 393)|] @:! "PLN" == 393
+   * [|("PLN", 393)|] @:! "USD" == raise
    * ```
    */
   let (@:!) = getUnsafe;
   /**
    * Remove an entry by key w/o mutation
    * ```reason
-   * [|("PLN", 393), ("USD", 100)|] @- "PLN" = [|("USD", 100)|]
+   * [|("PLN", 393), ("USD", 100)|] @- "PLN" 
+   *  == [|("USD", 100)|]
    * ```
    */
   let (@-) = remove;
   /**
-   * Appends entries w/o entries. **Doesn't** push existing keys!
+   * Appends entries w/o entries. **Doesn't** concat existing keys!
    * ```reason
-   * [|("PLN", 393)|] @++ [|("GBP", 82), ("USD", 100)|] =  [|("PLN", 393), ("GBP", 82), ("USD", 100)|]
-   *
+   * [|("PLN", 393)|] @++ [|("GBP", 82), ("USD", 100)|] 
+   *  ==  [|("PLN", 393), ("GBP", 82), ("USD", 100)|]
+   * ```
    */
   let (@++) = concat;
   /**
    * Appends an entry w/o mutation. **Doesn't** push an existing key!
    * ```reason
-   * [|("PLN", 393)|] @+ ("GBP", 82) = [|("PLN", 393), ("GBP", 82)|]
+   * [|("PLN", 393)|] @+ ("GBP", 82) 
+   *  == [|("PLN", 393), ("GBP", 82)|]
    * ```
    */
   let (@+) = push;
@@ -211,7 +224,7 @@ module Operators = {
    * Edits a matching entry.
    * ```reason
    * [|("PLN", 393), ("USD", 100)|] @# ("PLN", 390)
-   *  = [|("PLN", 390), ("USD", 100)|]
+   *  == [|("PLN", 390), ("USD", 100)|]
    * ```
    */
   let (@#) = (inst, (k, nv)) => replace(inst, k, nv);
@@ -219,7 +232,7 @@ module Operators = {
    * Edits a matching entry using a function
    * ```reason
    * [|("PLN", 100)|] @#> ("PLN", c => c * 2)
-   *  = [|("PLN", 200)|]
+   *  == [|("PLN", 200)|]
    * ```
    */
   let (@#>) = (inst, (k, f)) => freplace(inst, k, f);
@@ -229,7 +242,7 @@ module Operators = {
    * ```reason
    *  [|("PLN", 393), ("USD", 100), ("GBP", 82)|]
    *    @>>: [|"USD", "GBP"|]
-   *    = [|("USD", 100), ("GBP", 82)|]
+   *    == [|("USD", 100), ("GBP", 82)|]
    * ```
    */
   let (@>>:) = collect;
@@ -237,7 +250,7 @@ module Operators = {
    * Accesses an entry whose key matches the given regex.
    * ```reason
    * [|("Nil:01", 0), ("Pol:01", 1)|] $: [%re "/^Pol/"]
-   *  = Some(1)
+   *  == Some(1)
    * ```
    */
   let ($:) = getRe;
@@ -245,7 +258,7 @@ module Operators = {
    * Aggregates entries whose keys match the given regex.
    * ```reason
    * [|("Nil:01", 0), ("Pol:01", 1), ("Pol:02", 2)|] $:: [%re "/^Pol/"]
-   *  = [|("Pol:01", 1), ("Pol:02", 2)|]
+   *  == [|("Pol:01", 1), ("Pol:02", 2)|]
    * ```
    */
   let ($::) = aggretage;

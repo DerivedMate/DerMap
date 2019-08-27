@@ -2,7 +2,7 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
-var ReMap = require("../src/ReMap.bs.js");
+var RieMap = require("../src/RieMap.bs.js");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 
 var currencies = /* array */[
@@ -35,10 +35,10 @@ var people = /* array */[
 
 Jest.describe("(@:) Accessor", (function (param) {
         Jest.test("Gets a prmitive value", (function (param) {
-                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](currencies, "USD")));
+                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](currencies, "USD")));
               }));
         Jest.test("Gets a complex value", (function (param) {
-                var match = ReMap.Operators[/* @: */0](people, "Bob");
+                var match = RieMap.Operators[/* @: */0](people, "Bob");
                 if (match !== undefined) {
                   return Jest.Expect[/* toEqual */12]("Fluffykins", Jest.Expect[/* expect */0](match[/* petsName */0]));
                 } else {
@@ -46,31 +46,31 @@ Jest.describe("(@:) Accessor", (function (param) {
                 }
               }));
         return Jest.test("Returns `None` when didn't find an entry", (function (param) {
-                      return Jest.Expect[/* toEqual */12](undefined, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](people, "Jon")));
+                      return Jest.Expect[/* toEqual */12](undefined, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](people, "Jon")));
                     }));
       }));
 
 Jest.describe("(@!:) Unsafe Accessor", (function (param) {
         Jest.test("Gets a prmitive value", (function (param) {
-                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](ReMap.Operators[/* @:! */2](currencies, "USD")));
+                return Jest.Expect[/* toEqual */12](100, Jest.Expect[/* expect */0](RieMap.Operators[/* @:! */2](currencies, "USD")));
               }));
         return Jest.test("Gets a complex value", (function (param) {
-                      return Jest.Expect[/* toEqual */12]("Fluffykins", Jest.Expect[/* expect */0](ReMap.Operators[/* @:! */2](people, "Bob")[/* petsName */0]));
+                      return Jest.Expect[/* toEqual */12]("Fluffykins", Jest.Expect[/* expect */0](RieMap.Operators[/* @:! */2](people, "Bob")[/* petsName */0]));
                     }));
       }));
 
 Jest.describe("(@-) Deleter", (function (param) {
         Jest.test("Deletes a primitive value", (function (param) {
-                return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](ReMap.Operators[/* @- */3](currencies, "PLN"), "PLN")));
+                return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](RieMap.Operators[/* @- */3](currencies, "PLN"), "PLN")));
               }));
         return Jest.test("Deletes a colplex value", (function (param) {
-                      return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](ReMap.Operators[/* @- */3](people, "Bob"), "Bob")));
+                      return Jest.Expect[/* toBe */2](undefined, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](RieMap.Operators[/* @- */3](people, "Bob"), "Bob")));
                     }));
       }));
 
 Jest.describe("(@+ | @++) Appender", (function (param) {
         Jest.test("Adds a primitive", (function (param) {
-                return Jest.Expect[/* toBe */2](true, Jest.Expect[/* expect */0](Belt_Array.some(ReMap.Operators[/* @+ */5](currencies, /* tuple */[
+                return Jest.Expect[/* toBe */2](true, Jest.Expect[/* expect */0](Belt_Array.some(RieMap.Operators[/* @+ */5](currencies, /* tuple */[
                                         "GBP",
                                         82
                                       ]), (function (param) {
@@ -91,7 +91,7 @@ Jest.describe("(@+ | @++) Appender", (function (param) {
                                     "GBP",
                                     82
                                   ]
-                                ], Jest.Expect[/* expect */0](ReMap.Operators[/* @++ */4](/* array */[/* tuple */[
+                                ], Jest.Expect[/* expect */0](RieMap.Operators[/* @++ */4](/* array */[/* tuple */[
                                             "PLN",
                                             393
                                           ]], /* array */[
@@ -109,7 +109,7 @@ Jest.describe("(@+ | @++) Appender", (function (param) {
 
 Jest.describe("(@#) Editor", (function (param) {
         Jest.test("Edits a primitive", (function (param) {
-                return Jest.Expect[/* toEqual */12](401, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](ReMap.Operators[/* @# */6](/* array */[
+                return Jest.Expect[/* toEqual */12](401, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](RieMap.Operators[/* @# */6](/* array */[
                                         /* tuple */[
                                           "PLN",
                                           393
@@ -133,7 +133,7 @@ Jest.describe("(@#) Editor", (function (param) {
                                     "Bobby",
                                     28
                                   ]
-                                ], Jest.Expect[/* expect */0](ReMap.Operators[/* @>>= */8](ReMap.Operators[/* @# */6](people, /* tuple */[
+                                ], Jest.Expect[/* expect */0](RieMap.Operators[/* @>>= */8](RieMap.Operators[/* @# */6](people, /* tuple */[
                                               "James",
                                               /* record */[
                                                 /* petsName */"Bobby",
@@ -150,7 +150,7 @@ Jest.describe("(@#) Editor", (function (param) {
 
 Jest.describe("(@#>) Editor Function", (function (param) {
         Jest.test("Edits a primitive", (function (param) {
-                return Jest.Expect[/* toEqual */12](786, Jest.Expect[/* expect */0](ReMap.Operators[/* @: */0](ReMap.Operators[/* @#> */7](/* array */[
+                return Jest.Expect[/* toEqual */12](786, Jest.Expect[/* expect */0](RieMap.Operators[/* @: */0](RieMap.Operators[/* @#> */7](/* array */[
                                         /* tuple */[
                                           "PLN",
                                           393
@@ -176,7 +176,7 @@ Jest.describe("(@#>) Editor Function", (function (param) {
                                     "Bary",
                                     52
                                   ]
-                                ], Jest.Expect[/* expect */0](ReMap.Operators[/* @>>= */8](ReMap.Operators[/* @#> */7](people, /* tuple */[
+                                ], Jest.Expect[/* expect */0](RieMap.Operators[/* @>>= */8](RieMap.Operators[/* @#> */7](people, /* tuple */[
                                               "James",
                                               (function (p) {
                                                   return /* record */[
@@ -204,7 +204,7 @@ Jest.describe("(@>>:) Collect", (function (param) {
                                     "PLN",
                                     393
                                   ]
-                                ], Jest.Expect[/* expect */0](ReMap.Operators[/* @>>: */9](currencies, /* array */[
+                                ], Jest.Expect[/* expect */0](RieMap.Operators[/* @>>: */9](currencies, /* array */[
                                           "PLN",
                                           "USD"
                                         ])));

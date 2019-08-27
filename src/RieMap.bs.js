@@ -2,15 +2,16 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
-var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
 var make = Belt_Array.zip;
 
-function makeL(keys, values) {
-  return Belt_List.toArray(Belt_List.zip(keys, values));
+function keys(inst) {
+  return Belt_Array.map(inst, (function (param) {
+                return param[0];
+              }));
 }
 
 function get(inst, key) {
@@ -155,7 +156,7 @@ var Operators = /* module */[
 ];
 
 exports.make = make;
-exports.makeL = makeL;
+exports.keys = keys;
 exports.get = get;
 exports.getOr = getOr;
 exports.getUnsafe = getUnsafe;

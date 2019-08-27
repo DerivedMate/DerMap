@@ -1,7 +1,18 @@
 open Jest;
 open Expect;
-open ReMap;
+open RieMap;
 open Operators;
+
+describe("Inline: Functions (f form only)", () => {
+  test("make", () =>
+    expect(make([|"PLN", "USD"|], [|393, 100|]))
+    |> toEqual([|("PLN", 393), ("USD", 100)|])
+  );
+  test("keys", () =>
+    expect(keys([|("PLN", 393), ("USD", 100)|]))
+    |> toEqual([|"PLN", "USD"|])
+  );
+});
 
 describe("Inline: Operators", () => {
   test("@:", () =>
