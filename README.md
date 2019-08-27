@@ -1,8 +1,8 @@
-# ReMap
+# RieMap
 > Operators for working with JSON objects of unknown structure.
 
 ## Content
-- [ReMap](#remap)
+- [RieMap](#riemap)
   - [Content](#content)
   - [Installation](#installation)
   - [Motivation](#motivation)
