@@ -1,6 +1,6 @@
 {
   "name": "riemap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "jest": {
     "testRegex": "(/tests/.*|(\\.|/)(_test|spec))\\.[jt]sx?$"
   },
@@ -9,6 +9,13 @@
     "build": "bsb -make-world",
     "watch": "bsb -make-world -w",
     "test": "npm run build && jest --verbose"
+  },
+  "repository": {
+    "url": "https://github.com/DerivedMate/riemap",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/DerivedMate/riemap/issues"
   },
   "keywords": [
     "BuckleScript"
